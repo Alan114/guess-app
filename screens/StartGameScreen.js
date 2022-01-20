@@ -22,7 +22,6 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     alignItems: "center",
-    backgroundColor: "whitesmoke",
   },
   title: {
     fontSize: 20,
@@ -32,6 +31,15 @@ const styles = StyleSheet.create({
     width: 300,
     maxWidth: "80%",
     alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 6,
+    shadowOpacity: 0.25,
+    elevation: 5,
+    backgroundColor: "white",
+    padding: 20,
+    borderBottomLeftRadius: 20,
+    borderTopRightRadius: 20,
   },
   buttonContainer: {
     width: "100%",
