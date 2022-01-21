@@ -112,9 +112,9 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   buttonContainer: {
-    width: "100%",
     flexDirection: "row",
     justifyContent: "space-around",
+    width: "100%",
   },
   button: {
     width: 90,
