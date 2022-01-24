@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 28,
     color: "white",
+    fontFamily: "open-sans-bold",
   },
 });
 export default Header;
