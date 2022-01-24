@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import Header from "./components/Header";
 import StartGameScreen from "./screens/StartGameScreen";
 import GameScreen from "./screens/GameScreen";
@@ -9,9 +9,13 @@ export default function App() {
   const [userNumber, setUserNumber] = useState();
   const [guessRounds, setGuessRounds] = useState(0);
 
+  const handleNewGame = () => {
+    setGuessRounds(0);
+    setUserNumber(null);
+  };
+
   const handleStartGame = (selectedNumber) => {
     setUserNumber(selectedNumber);
-    setGuessRounds(0);
   };
 
   const handleGameOver = (numOfRounds) => {
@@ -25,7 +29,13 @@ export default function App() {
       <GameScreen userChoice={userNumber} handleGameOver={handleGameOver} />
     );
   } else if (guessRounds > 0) {
-    content = <GameOverScreen />;
+    content = (
+      <GameOverScreen
+        roundsNumber={guessRounds}
+        userNumber={userNumber}
+        onRestart={handleNewGame}
+      />
+    );
   }
 
   return (
