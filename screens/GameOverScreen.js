@@ -9,7 +9,10 @@ const GameOverScreen = (props) => {
       <TitleText>The game is over!!!</TitleText>
       <View style={styles.imageContainer}>
         <Image
-          source={require("../assets/success.png")}
+          // source={require("../assets/success.png")}
+          source={{
+            uri: "https://www.exoticca.com/uk/magazine/wp-content/uploads/2021/06/matterhorn-BLOG-mountains.png",
+          }}
           style={styles.image}
           resizeMode="cover"
         />
