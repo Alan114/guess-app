@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -9,6 +9,7 @@ import {
   Alert,
   Dimensions,
   ScrollView,
+  KeyboardAvoidingView,
 } from "react-native";
 import Card from "../components/Card";
 import Input from "../components/Input";
@@ -22,6 +23,9 @@ const StartGameScreen = (props) => {
   const [enteredValue, setenteredValue] = useState("");
   const [confirmed, setConfirmed] = useState(false);
   const [selectedNumber, setSelectedNumber] = useState();
+  const [buttonWidth, setButtonWidth] = useState(
+    Dimensions.get("window").width / 4
+  );
 
   const handleNumberInput = (inputText) => {
     setenteredValue(inputText.replace(/[^0-9]/g, ""));
@@ -31,6 +35,16 @@ const StartGameScreen = (props) => {
     setenteredValue("");
     setConfirmed(false);
   };
+
+  useEffect(() => {
+    const updateLayout = () => {
+      setButtonWidth(Dimensions.get("window").width / 4);
+    };
+
+    const subscription = Dimensions.addEventListener("change", updateLayout);
+
+    return () => subscription?.remove();
+  }, []);
 
   const handleInputConfirm = () => {
     const chosenNumber = parseInt(enteredValue);
@@ -62,41 +76,43 @@ const StartGameScreen = (props) => {
 
   return (
     <ScrollView>
-      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <View style={styles.gameScreen}>
-          <TitleText style={styles.title}>Start a new Game!</TitleText>
-          <Card style={styles.inputContainer}>
-            <Bodytext>Select a number</Bodytext>
-            <Input
-              style={styles.input}
-              blurOnSubmit
-              autoCapitalize="none"
-              autoCorrect={false}
-              keyboardType="number-pad"
-              maxLength={2}
-              onChangeText={handleNumberInput}
-              value={enteredValue}
-            />
-            <View style={styles.buttonContainer}>
-              <View style={styles.button}>
-                <Button
-                  title="Reset"
-                  color={Colors.accent}
-                  onPress={handleInputReset}
-                />
+      <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={30}>
+        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+          <View style={styles.gameScreen}>
+            <TitleText style={styles.title}>Start a new Game!</TitleText>
+            <Card style={styles.inputContainer}>
+              <Bodytext>Select a number</Bodytext>
+              <Input
+                style={styles.input}
+                blurOnSubmit
+                autoCapitalize="none"
+                autoCorrect={false}
+                keyboardType="number-pad"
+                maxLength={2}
+                onChangeText={handleNumberInput}
+                value={enteredValue}
+              />
+              <View style={styles.buttonContainer}>
+                <View style={{ width: buttonWidth }}>
+                  <Button
+                    title="Reset"
+                    color={Colors.accent}
+                    onPress={handleInputReset}
+                  />
+                </View>
+                <View style={{ width: buttonWidth }}>
+                  <Button
+                    title="Confirm"
+                    color={Colors.primary}
+                    onPress={handleInputConfirm}
+                  />
+                </View>
               </View>
-              <View style={styles.button}>
-                <Button
-                  title="Confirm"
-                  color={Colors.primary}
-                  onPress={handleInputConfirm}
-                />
-              </View>
-            </View>
-          </Card>
-          {confirmedOutput}
-        </View>
-      </TouchableWithoutFeedback>
+            </Card>
+            {confirmedOutput}
+          </View>
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
     </ScrollView>
   );
 };
@@ -128,10 +144,10 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     width: "100%",
   },
-  button: {
-    // width: 90,
-    width: Dimensions.get("window").width / 4,
-  },
+  // button: {
+  //   // width: 90,
+  //   width: Dimensions.get("window").width / 4,
+  // },
   summaryContainer: {
     marginTop: 20,
     alignItems: "center",
