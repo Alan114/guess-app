@@ -17,7 +17,7 @@ const MainButton = (props) => {
   }
 
   return (
-    <View style={buttonContainer}>
+    <View style={styles.buttonContainer}>
       <ButtonComponent onPress={props.onPress}>
         <View style={styles.button}>
           <Text style={styles.buttonText}>{props.children}</Text>
