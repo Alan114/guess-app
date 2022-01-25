@@ -16,8 +16,8 @@ const styles = StyleSheet.create({
     elevation: 8,
     backgroundColor: "white",
     padding: 20,
-    borderBottomLeftRadius: 20,
-    borderTopRightRadius: 20,
+    borderBottomRightRadius: 20,
+    borderTopLeftRadius: 20,
   },
 });
 export default Card;
